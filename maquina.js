@@ -31,6 +31,34 @@ const PRECIO_CAPUCHINO = 3.00;
 const PRECIO_CHOCOLATE = 2.50;       
 const PRECIO_MOCACHINO = 3.50;       
 
+switch (true) {
+    case (PRECIO_AMERICANO) < 0 || PRECIO_CAFE_CON_LECHE < 0 || PRECIO_CAPUCHINO < 0 || PRECIO_CHOCOLATE < 0 || PRECIO_MOCACHINO < 0:
+        console.error("Error: Los precios de los productos no pueden ser negativos.");
+        break;
+    default:
+        console.log("Precios de productos inicializados correctamente.");
+}
+switch (false) {
+    case (PRECIO_AMERICANO > 0 && PRECIO_CAFE_CON_LECHE > 0 && PRECIO_CAPUCHINO > 0 && PRECIO_CHOCOLATE > 0 && PRECIO_MOCACHINO > 0):
+        console.error("Error: Todos los productos deben tener un precio mayor a cero.");
+        break;
+    default:
+        console.log("Todos los productos tienen un precio válido.");
+}
+switch (true) {
+    case (CAPACIDAD_MAX_AGUA <= 0 || CAPACIDAD_MAX_CAFE <= 0 || CAPACIDAD_MAX_LECHE <= 0 || CAPACIDAD_MAX_CHOCOLATE <= 0 || CAPACIDAD_MAX_VASOS <= 0):
+        console.error("Error: La capacidad máxima de los depósitos debe ser mayor a cero.");
+        break;
+    default:
+        console.log("Capacidades maximas de depósitos inicializadas correctaente")
+}
+switch (false) {
+    case (CAPACIDAD_MAX_AGUA > 0 && CAPACIDAD_MAX_CAFE > 0 && CAPACIDAD_MAX_LECHE > 0 && CAPACIDAD_MAX_CHOCOLATE > 0 && CAPACIDAD_MAX_VASOS > 0):
+        console.error("Error: Todos los depósitos deben tener una capacidad máxima mayor a cero.");
+        break;
+    default:
+        console.log("Todos los depósitos tienen una capacidad máxima válida.");
+}
 // 4. VARIABLES TRANSACCIONALES Y ESTADO DEL SISTEMA
 let estadoMaquina = "DISPONIBLE"; 
 let dineroIngresado = 0.0;    
@@ -38,11 +66,56 @@ let cambioDevuelto = 0.0;
 let cajaRegistradora = 50.0;     
 let contadorVentasTotales = 0;    
 
-// 5. REGLAS DE NEGOCIO (LÓGICA DEL SISTEMA)
 
+if (estadoMaquina !== "DISPONIBLE" && estadoMaquina !== "MANTENIMIENTO") {
+    console.error("Error: Estado de la máquina inválido. Debe ser 'DISPONIBLE' o 'MANTENIMIENTO'.");
+}
+if (estadoMaquina === "MANTENIMIENTO") {
+    console.warn("Advertencia: La máquina está en mantenimiento. No se pueden realizar operaciones hasta que se recarguen los insumos.");
+}
+if (estadoMaquina === "DISPONIBLE") {
+    console.log("La máquina está disponible para operar.");
+}
+
+if (stockAgua <=0) {
+    console.error("Error: No hay agua disponible en la máquina. La máquina no puede operar sin agua.");
+}
+
+if (stockAgua >=1) {
+    console.log("La maquina tiene suficiente afua para operar.");
+}
+
+if (stockCafe <= 0) {
+    console.error("Error: No hay café disponible en la maquina. La máquina no puede operar sin café."); 
+}
+
+if (stockCafe >=1) {
+    console.log("la maquina tiene suficiente café para operar.");
+}
+if (stockLeche <= 0) {
+    console.error("Error: No hay leche disponible en la máquina. La máquina no puede operar sin leche.");
+}
+
+if (stockLeche >=1) {
+    console.log("La maquina tiene suficiente leche para operar.");
+} 
+if (stockChocolate <= 0) {
+    console.error("Error: No hay chocolate disponible en la máquina. La máquina no puede operar sin chocolate.");
+}
+if (stockChocolate >=1) {
+    console.log("La maquina tiene suficiente chocolate para operar.");
+}   
+
+if (vasos <= 0) {
+    console.error("Error: No hay vasos disponibles. La máquina no puede operar sin vasos.");
+}
+
+if (vasos >=1) {
+    console.log("La maquina tiene suficientes vasos para operar.");
+}
+// 5. REGLAS DE NEGOCIO (LÓGICA DEL SISTEMA)
 /*
- * REGLA 1: Disponibilidad General del Sistema
- * La máquina solo acepta transacciones si está en estado "DISPONIBLE".
+ * REGLA 1: Disponibilidad General del Sistema    
  */
 function estaDisponible() {
     return estadoMaquina === "DISPONIBLE";
@@ -50,8 +123,6 @@ function estaDisponible() {
 
 /*
  * REGLA 2: Validación de Existencia de Insumos (Stock)
- * No se puede iniciar la preparación si falta AL MENOS UNO de los 
- * ingredientes de la receta o si no hay vasos disponibles.
  */
 function verificarStockSuficiente(receta) {
     if (stockVasos < receta.vasos) return false;
@@ -64,9 +135,6 @@ function verificarStockSuficiente(receta) {
 
 /*
  * REGLA 3: Cobro y Verificación de Pago Insuficiente / Cambio
- * - El dinero ingresado debe ser mayor o igual al precio del producto.
- * - Si es mayor, se calcula y devuelve el cambio exacto.
- * - El costo del producto se suma a la caja registradora.
  */
 function procesarCobro(precioProducto) {
     if (dineroIngresado < precioProducto) {
@@ -84,8 +152,6 @@ function procesarCobro(precioProducto) {
 
 /*
  * REGLA 4: Consumo y Descuento de Insumos
- * Una vez aprobado el pago, se restan exactamente las cantidades 
- * especificadas en la receta de los contenedores principales.
  */
 function descontarStock(receta) {
     stockAgua -= receta.agua;
@@ -97,8 +163,6 @@ function descontarStock(receta) {
 
 /*
  * REGLA 5: Alerta Automática de Nivel Crítico / Mantenimiento
- * Si el agua o el café bajan del umbral mínimo, la máquina
- * cambia automáticamente a estado "MANTENIMIENTO" para evitar daños.
  */
 function evaluarEstadoInsumos() {
     if (stockAgua < MINIMO_AGUA || stockCafe < MINIMO_CAFE || stockVasos === 0) {
@@ -109,7 +173,6 @@ function evaluarEstadoInsumos() {
 
 /*
  * REGLA 6: Recarga de Insumos (Solo Mantenimiento)
- * Permite rellenar los depósitos sin exceder la capacidad máxima permitida.
  */
 function recargarInsumos(agua, cafe, leche, chocolate, vasos) {
     stockAgua = Math.min(stockAgua + agua, CAPACIDAD_MAX_AGUA);
