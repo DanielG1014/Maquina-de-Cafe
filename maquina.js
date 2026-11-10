@@ -24,7 +24,7 @@ const recetaCapuchino = { agua: 80, cafe: 10, leche: 20, chocolate: 5, vasos: 1 
 const recetaChocolate = { agua: 150, cafe: 0, leche: 0, chocolate: 30, vasos: 1 };
 const recetaMocachino = { agua: 80, cafe: 10, leche: 15, chocolate: 15, vasos: 1 };
 
-// 3. PRECIOS Y VALORES MONETARIOS
+// 3. PRECIOS 
 const PRECIO_AMERICANO = 2.00;        
 const PRECIO_CAFE_CON_LECHE = 2.50;   
 const PRECIO_CAPUCHINO = 3.00;        
@@ -37,37 +37,6 @@ let dineroIngresado = 0.0;
 let cambioDevuelto = 0.0;        
 let cajaRegistradora = 50.0;     
 let contadorVentasTotales = 0;    
-
-// 5. REGLAS DE NEGOCIO
-function estaDisponible() {
-    return estadoMaquina === "DISPONIBLE";
-}
-
-function verificarStockSuficiente(receta) {
-    if (stockVasos < receta.vasos) return false;
-    if (stockAgua < receta.agua) return false;
-    if (stockCafe < receta.cafe) return false;
-    if (stockLeche < receta.leche) return false;
-    if (stockChocolate < receta.chocolate) return false;
-    return true;
-}
-
-function procesarCobro(precioProducto) {
-    if (dineroIngresado < precioProducto) {
-        let faltante = precioProducto - dineroIngresado;
-        console.log(`Pago insuficiente. Falta ingresar: $${faltante.toFixed(2)}`);
-        return false;
-    }
-    
-    cambioDevuelto = dineroIngresado - precioProducto;
-    cajaRegistradora += precioProducto;
-    dineroIngresado = 0.0; 
-    contadorVentasTotales++;
-    return true;
-}
-console.log("=== MÁQUINA DISPENSADORA DE CAFÉ INICIALIZADA ===");
-console.log("Estado:", estadoMaquina);
-console.log(`Stock: Agua: ${stockAgua}ml | Café: ${stockCafe}g | Leche: ${stockLeche}g | Chocolate: ${stockChocolate}g | Vasos: ${stockVasos}`);
 
 if (stockAgua <=0) {
     console.error("Error: No hay agua disponible en la máquina. La máquina no puede operar sin agua.");
@@ -131,4 +100,16 @@ switch (precio) {
         break;
     default:
         alert("Error: Opción de precio inválida. Debe seleccionar un número del 1 al 5.")
+}
+function estadodisponible() {
+    return estadoMaquina = "DISPONIBLE";
+}
+function restarvasos() {
+    return stockVasos = stockVasos - 1;
+}
+function ingresarDinero() {
+    return dineroIngresado = dineroIngresado + 1.00;
+}
+function devolverCambio() {
+    return cambioDevuelto = dineroIngresado - precio;
 }
