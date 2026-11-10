@@ -38,6 +38,24 @@ let cambioDevuelto = 0.0;
 let cajaRegistradora = 50.0;     
 let contadorVentasTotales = 0;    
 
+function estadodisponible() {
+    return estadoMaquina = "DISPONIBLE";
+}
+function restarvasos() {
+    return stockVasos = stockVasos - 1;
+}
+function ingresarDinero() {
+    return dineroIngresado = dineroIngresado + 1.00;
+}
+function devolverCambio() {
+    return cambioDevuelto = dineroIngresado - precio;
+}
+function pedirAzucar(azucar) {
+    let mesage;
+    if(saldo<precio) {
+        mesage = "Error: Saldo insuficiente. Por favor, ingrese más dinero.";
+    } 
+
 if (stockAgua <=0) {
     console.error("Error: No hay agua disponible en la máquina. La máquina no puede operar sin agua.");
 } else if (stockAgua >=1) {
@@ -100,16 +118,4 @@ switch (precio) {
         break;
     default:
         alert("Error: Opción de precio inválida. Debe seleccionar un número del 1 al 5.")
-}
-function estadodisponible() {
-    return estadoMaquina = "DISPONIBLE";
-}
-function restarvasos() {
-    return stockVasos = stockVasos - 1;
-}
-function ingresarDinero() {
-    return dineroIngresado = dineroIngresado + 1.00;
-}
-function devolverCambio() {
-    return cambioDevuelto = dineroIngresado - precio;
 }
