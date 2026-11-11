@@ -1,5 +1,5 @@
 
-// 1. VARIABLES DE INVENTARIO Y CAPACIDAD 
+// VARIABLES DE INVENTARIO Y CAPACIDAD 
 let stockAgua = 2000;          
 let stockCafe = 500;           
 let stockLeche = 400;         
@@ -11,27 +11,26 @@ const CAPACIDAD_MAX_AGUA = 2000;
 const CAPACIDAD_MAX_CAFE = 500;      
 const CAPACIDAD_MAX_LECHE = 400;     
 const CAPACIDAD_MAX_CHOCOLATE = 400;  
-const CAPACIDAD_MAX_VASOS = 50;        
+const CAPACIDAD_MAX_VASOS = 50;              
 
-// Nivel mínimo de alerta para mantenimiento
-const MINIMO_AGUA = 100;       
-const MINIMO_CAFE = 15;        
-
-// 2. RECETAS DE LOS PRODUCTOS (Proporciones por taza)
+// RECETAS DE LOS PRODUCTOS (Proporciones por taza)
 const recetaAmericano = { agua: 150, cafe: 10, leche: 0, chocolate: 0, vasos: 1 };
 const recetaCafeConLeche = { agua: 100, cafe: 10, leche: 15, chocolate: 0, vasos: 1 };
 const recetaCapuchino = { agua: 80, cafe: 10, leche: 20, chocolate: 5, vasos: 1 };
 const recetaChocolate = { agua: 150, cafe: 0, leche: 0, chocolate: 30, vasos: 1 };
 const recetaMocachino = { agua: 80, cafe: 10, leche: 15, chocolate: 15, vasos: 1 };
 
-// 3. PRECIOS 
+// PRECIOS 
 const PRECIO_AMERICANO = 2.00;        
 const PRECIO_CAFE_CON_LECHE = 2.50;   
 const PRECIO_CAPUCHINO = 3.00;        
 const PRECIO_CHOCOLATE = 2.50;       
-const PRECIO_MOCACHINO = 3.50;       
+const PRECIO_MOCACHINO = 3.50;     
 
-// 4. VARIABLES TRANSACCIONALES Y ESTADO DEL SISTEMA
+// ARRAY
+const productos = ["Americano", "Café con Leche", "Capuchino", "Chocolate", "Mocachino"];
+const precios = [2.00, 2.50, 3.00, 2.50, 3.50];
+// VARIABLES TRANSACCIONALES Y ESTADO DEL SISTEMA
 let estadoMaquina = "DISPONIBLE"; 
 let dineroIngresado = 0.0;    
 let cambioDevuelto = 0.0;        
